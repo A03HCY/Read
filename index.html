@@ -17,7 +17,7 @@
             <a href="javascript:;" class="mdui-btn mdui-btn-icon mdui-ripple" mdui-drawer="{target: '#drawer'}">
                 <i class="mdui-icon material-icons">menu</i>
             </a>
-            <a href="javascript:;" id="title" class="mdui-typo-title">Title</a>
+            <a href="javascript:;" id="title" class="mdui-typo-title">Acdp Reader</a>
             <div class="mdui-toolbar-spacer"></div>
             <a href="javascript:;" class="mdui-btn mdui-btn-icon mdui-ripple">
                 <i class="mdui-icon material-icons">search</i>
@@ -31,17 +31,25 @@
         </div>
     </div>
     <div class="mdui-drawer" id="drawer">
-        <ul class="mdui-list" id="menu" mdui-collapse="{accordion: true}"></ul>
+        <ul class="mdui-list" id="menu" mdui-collapse="{accordion: true}">
+            <li class="mdui-list-item mdui-ripple mdui-list-item-active">
+                <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+                <div class="mdui-list-item-content">Home</div>
+            </li>
+        </ul>
     </div>
     <div class="mdui-container">
         <article class="mdui-typo"></article>
     </div>
 
+    <script src="https://cdn.bootcss.com/jszip/2.1.0/jszip.min.js"></script>
+    <script src="https://cdn.bootcss.com/jszip-utils/0.0.2/jszip-utils.min.js"></script>
     <script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
     <script src="https://unpkg.com/showdown/dist/showdown.min.js"></script>
+    <script src="./static/reader.js"></script>
     <script>
-        let $ = mdui.$;
         let P = '';
+        let F;
 
         test = {
             "Chaper.1": {
@@ -57,19 +65,7 @@
                     "md": "url 2.1"
                 }
             },
-            "Chaper.end-SINGLE": 'https://core.acdp.top/README.md'
-        }
-
-        String.prototype.nReplace = function (f, e) {
-            let reg = new RegExp(f, "g");
-            return this.replace(reg, e);
-        }
-
-        function Randomcode(length) {
-            let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-            let result = '';
-            for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
-            return result;
+            "Chaper.end-SINGLE": "https://core.acdp.top/README.md"
         }
 
         function Converter(mark) {
@@ -102,7 +98,6 @@
             let data;
             if (typeof (meta) == 'string') {
                 data = JSON.parse(meta);
-                console.log('if');
             } else {
                 data = meta;
             }
@@ -121,10 +116,23 @@
             Loadanime();
             let innerH = Randomcode(4);
             P = innerH;
-            LoadMarkdown($(e).attr('md'), innerH)
+            if ($(e).attr('md').includes('http')) {
+                LoadNetMarkdown($(e).attr('md'), innerH)
+            } else {
+                LoadLocalMarkdown($(e).attr('md'), innerH)
+            }
         }
 
-        function LoadMarkdown(url, code) {
+        function LoadLocalMarkdown(name, code) {
+            let md = GetString('meta/' + name)
+            let converter = new showdown.Converter();
+            let html = converter.makeHtml(md);
+            if (P == code) {
+                $('article').html(html)
+            }
+        }
+
+        function LoadNetMarkdown(url, code) {
             $.ajax({
                 method: 'GET',
                 url: url,
@@ -148,7 +156,29 @@
             mdui.mutation()
         }
 
-        CreatMenu(test, 'menu')
+        function GetString(name) {
+            if (F == null) return '';
+            let Uint8ArrayStr = F.folder().files[name]._data.getContent()
+            return Utf8ArrayToStr(Uint8ArrayStr)
+        }
+
+        function GetJson(name) {
+            let meta = GetString(name)
+            data = JSON.parse(meta);
+            return data
+        }
+
+        function OpenFile(type, path) {
+            if (type == 'index') {
+                CreatMenu(path, 'menu')
+            } else if (type == 'file') {
+                JSZipUtils.getBinaryContent(path, function (err, data) {
+                    let zip = new JSZip(data)
+                    F = zip
+                    CreatMenu(GetJson('chapter.json'), 'menu')
+                })
+            }
+        }
 
     </script>
 </body>
