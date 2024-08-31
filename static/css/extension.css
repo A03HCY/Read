@@ -1,0 +1,21 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+mdui-circular-progress {
+    margin: auto;
+    margin-top: 30vh;
+}
+
+mdui-list-subheader {
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

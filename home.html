@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" />
+    <meta name="renderer" content="webkit" />
+
+    <script src="https://cdn.jsdelivr.net/npm/mdui/mdui.global.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/mdui/mdui.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/css/extension.css">
+    <script src="/static/js/extension.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <title>Read Book</title>
+</head>
+
+<body>
+
+    <mdui-layout full-height>
+
+        <mdui-navigation-drawer close-on-overlay-click class="navigation-drawer">
+            <mdui-list>
+                <mdui-list-subheader>Books</mdui-list-subheader>
+                <mdui-list-item onclick="select_code()" icon="book">选择书本</mdui-list-item>
+            </mdui-list>
+        </mdui-navigation-drawer>
+
+        <mdui-top-app-bar class="app-bar">
+            <mdui-button-icon id="menu" icon="menu"></mdui-button-icon>
+            <mdui-top-app-bar-title id="title">Read Book</mdui-top-app-bar-title>
+            <div style="flex-grow: 1"></div>
+            <mdui-button-icon icon="more_vert"></mdui-button-icon>
+        </mdui-top-app-bar>
+
+        <mdui-layout-main class="layout-main" style="overflow: auto;">
+            <div id="article" style="margin: 16px;">
+                打开左上角目录开始选择书本阅读
+            </div>
+        </mdui-layout-main>
+
+    </mdui-layout>
+
+    <mdui-snackbar id="menu_loaded_info" placement="bottom-end">目录加载完毕</mdui-snackbar>
+
+</body>
+
+<script>
+    let drawer = document.querySelector('.navigation-drawer')
+    $('#menu').on('click', () => {
+        drawer.open = !drawer.open
+    })
+
+</script>
+<script src="/static/js/app.js"></script>
+
+
+</html>
