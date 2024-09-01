@@ -47,7 +47,7 @@ const load_book_json = (url) => {
 }
 
 let direct = {
-    'zmz':'/book.json'
+    'zmz':'/books/zmz.json'
 }
 
 const select_code = () => {
