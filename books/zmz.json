@@ -1,7 +1,17 @@
 {
     "title": "恐惧震慑(原版)",
+    "loads": {
+        "title": "快跑，不要回头..."
+    },
+    "theme": {
+        "light": "dark",
+        "music": ""
+    },
     "index": {
-        "Chapter.1": "/books/zmz/chap1.md",
+        "Chapter.1": {
+            "url": "/books/zmz/chap1.md",
+            "music": ""
+        },
         "Chapter.2": "/books/zmz/chap2.md"
     }
 }

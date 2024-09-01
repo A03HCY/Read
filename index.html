@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="mdui-theme-auto">
 
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/howler/dist/howler.min.js"></script>
 
     <title>Read Book</title>
 </head>
@@ -24,11 +25,15 @@
 
     <mdui-layout full-height>
 
-        <mdui-navigation-drawer close-on-overlay-click class="navigation-drawer">
-            <mdui-list>
-                <mdui-list-subheader>Books</mdui-list-subheader>
-                <mdui-list-item onclick="select_code()" icon="book">选择书本</mdui-list-item>
-            </mdui-list>
+        <mdui-navigation-drawer close-on-overlay-click class="navigation-drawer" style="display: flex; height: 100%;">
+            <div style="align-self: flex-start;width: 100%;margin-top: 8px;">
+                <mdui-list-subheader id="book">Books</mdui-list-subheader>
+            </div>
+            <div id="index">
+                <mdui-list>
+                    <mdui-list-item onclick="select_code()" icon="book">选择书本</mdui-list-item>
+                </mdui-list>
+            </div>
         </mdui-navigation-drawer>
 
         <mdui-top-app-bar class="app-bar">

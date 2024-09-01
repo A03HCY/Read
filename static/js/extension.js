@@ -1,5 +1,6 @@
 let $ = mdui.$
 
+let book_data = {}
 let book_info = {}
 let book_cach = {}
 
@@ -66,13 +67,26 @@ const create_index = (data, subtitle, load = false) => {
     }
     for (let key in data) {
         let code = random_code()
+        let url = data[key]
+        if (typeof url == 'object') {
+            url = url['url']
+        }
         book_info[code] = {
             'title': key,
-            'url': data[key],
+            'url': url,
         }
         html += `<mdui-list-item onclick="active_index(this)" info="${code}">${key}</mdui-list-item>`
     }
     html += '</mdui-list>'
-    if (load) $('.navigation-drawer').html(html)
+    if (load) $('#index').html(html)
     return html
+}
+
+const load_music = (data, func) => {
+    let sound = new howler.Howl(data)
+    sound.on('load', function () {
+        try {
+            if (func) func(sound)
+        } catch (e) {}
+    })
 }
