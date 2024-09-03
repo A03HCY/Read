@@ -56,6 +56,8 @@ const auto_play_book_music = (url) => {
 }
 
 const load_book_extn = (info) => {
+    close_drawer('home')
+    open_drawer('book')
     mdui.setTheme(info.theme.light)
     document.getElementById('menu_loaded_info').open = true
     auto_play_book_music(info.theme.music)
@@ -89,7 +91,7 @@ const load_book_json = (url) => {
             }
         }
         book_data = data
-        $('#book').html(title)
+        $('#book_name').html(title)
         create_index(index, '', load = true)
         load_book_extn(data)
     })

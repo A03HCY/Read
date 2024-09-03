@@ -25,13 +25,23 @@
 
     <mdui-layout full-height>
 
-        <mdui-navigation-drawer close-on-overlay-click class="navigation-drawer" style="display: flex; height: 100%;">
-            <div style="align-self: flex-start;width: 100%;margin-top: 8px;">
-                <mdui-list-subheader id="book">Books</mdui-list-subheader>
+        <mdui-navigation-drawer id="home_drawer" close-on-overlay-click class="navigation-drawer">
+            <div style="align-self: flex-start;width: 100%;margin-top: 4px;">
+                <mdui-list-subheader>Books</mdui-list-subheader>
+            </div>
+            <mdui-list style="padding-top: 4px;">
+                <mdui-list-item icon="book_outlined">Book Bank</mdui-list-item>
+                <mdui-list-item icon="settings_outlined">Settings</mdui-list-item>
+            </mdui-list>
+        </mdui-navigation-drawer>
+
+        <mdui-navigation-drawer id="book_drawer" close-on-overlay-click placement="right" class="navigation-drawer">
+            <div style="align-self: flex-start;width: 100%;margin-top: 4px;">
+                <mdui-list-subheader id="book_name">目录</mdui-list-subheader>
             </div>
             <div id="index">
-                <mdui-list>
-                    <mdui-list-item onclick="select_code()" icon="book">选择书本</mdui-list-item>
+                <mdui-list style="padding-top: 4px;">
+                    <mdui-list-item onclick="select_code()" icon="file_upload">选择书本</mdui-list-item>
                 </mdui-list>
             </div>
         </mdui-navigation-drawer>
@@ -40,12 +50,11 @@
             <mdui-button-icon id="menu" icon="menu"></mdui-button-icon>
             <mdui-top-app-bar-title id="title">Read Book</mdui-top-app-bar-title>
             <div style="flex-grow: 1"></div>
-            <mdui-button-icon icon="more_vert"></mdui-button-icon>
+            <mdui-button-icon id="book" icon="format_list_bulleted"></mdui-button-icon>
         </mdui-top-app-bar>
 
         <mdui-layout-main class="layout-main" style="overflow: auto;">
             <div id="article" style="margin: 16px;">
-                打开左上角目录开始选择书本阅读
             </div>
         </mdui-layout-main>
 
@@ -56,9 +65,42 @@
 </body>
 
 <script>
-    let drawer = document.querySelector('.navigation-drawer')
+    let home_drawer_state = book_drawer_state = false
+    let home_drawer = document.getElementById('home_drawer')
+    let book_drawer = document.getElementById('book_drawer')
+
+    const close_drawer = (target) => {
+        if (target == 'home' && home_drawer_state == true) {
+            $('#menu').trigger('click')
+        }
+        if (target == 'book' && book_drawer_state == true) {
+            $('#book').trigger('click')
+        }
+        if (target == 'all') {
+            close_drawer('home')
+            close_drawer('book')
+        }
+    }
+    const open_drawer = (target) => {
+        if (target == 'home' && home_drawer_state == false) {
+            $('#menu').trigger('click')
+        }
+        if (target == 'book' && book_drawer_state == false) {
+            $('#book').trigger('click')
+        }
+        if (target == 'all') {
+            open_drawer('home')
+            open_drawer('book')
+        }
+    }
+
     $('#menu').on('click', () => {
-        drawer.open = !drawer.open
+        home_drawer.open = !home_drawer.open
+        home_drawer_state = home_drawer.open
+    })
+    $('#book').on('click', () => {
+        book_drawer.open = !book_drawer.open
+        book_drawer_state = book_drawer.open
     })
 
 </script>
