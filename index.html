@@ -12,9 +12,6 @@
     <link rel="stylesheet" href="/static/css/extension.css">
     <script src="/static/js/extension.js"></script>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/howler/dist/howler.min.js"></script>
 
@@ -30,8 +27,8 @@
                 <mdui-list-subheader>Books</mdui-list-subheader>
             </div>
             <mdui-list style="padding-top: 4px;">
-                <mdui-list-item icon="book_outlined">Book Bank</mdui-list-item>
-                <mdui-list-item icon="settings_outlined">Settings</mdui-list-item>
+                <mdui-list-item icon="book">Book Bank</mdui-list-item>
+                <mdui-list-item icon="settings">Settings</mdui-list-item>
             </mdui-list>
         </mdui-navigation-drawer>
 
@@ -50,7 +47,7 @@
             <mdui-button-icon id="menu" icon="menu"></mdui-button-icon>
             <mdui-top-app-bar-title id="title">Read Book</mdui-top-app-bar-title>
             <div style="flex-grow: 1"></div>
-            <mdui-button-icon id="book" icon="format_list_bulleted"></mdui-button-icon>
+            <mdui-button-icon id="book" icon="toc"></mdui-button-icon>
         </mdui-top-app-bar>
 
         <mdui-layout-main class="layout-main" style="overflow: auto;">
@@ -97,6 +94,11 @@
     $('#menu').on('click', () => {
         home_drawer.open = !home_drawer.open
         home_drawer_state = home_drawer.open
+        if (home_drawer_state) {
+            $('#menu').attr('icon', 'menu_open')
+        } else {
+            $('#menu').attr('icon', 'menu')
+        }
     })
     $('#book').on('click', () => {
         book_drawer.open = !book_drawer.open
