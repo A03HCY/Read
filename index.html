@@ -62,43 +62,18 @@
 </body>
 
 <script>
-    let home_drawer_state = book_drawer_state = false
     let home_drawer = document.getElementById('home_drawer')
     let book_drawer = document.getElementById('book_drawer')
 
-    const close_drawer = (target) => {
-        if (target == 'home' && home_drawer_state == true) {
-            $('#menu').trigger('click')
-        }
-        if (target == 'book' && book_drawer_state == true) {
-            $('#book').trigger('click')
-        }
-        if (target == 'all') {
-            close_drawer('home')
-            close_drawer('book')
-        }
-    }
-    const open_drawer = (target) => {
-        if (target == 'home' && home_drawer_state == false) {
-            $('#menu').trigger('click')
-        }
-        if (target == 'book' && book_drawer_state == false) {
-            $('#book').trigger('click')
-        }
-        if (target == 'all') {
-            open_drawer('home')
-            open_drawer('book')
-        }
-    }
-
+    $('#home_drawer').on('open', () => {
+        $('#menu').attr('icon', 'menu_open')
+    })
+    $('#home_drawer').on('close', () => {
+        $('#menu').attr('icon', 'menu')
+    })
     $('#menu').on('click', () => {
         home_drawer.open = !home_drawer.open
         home_drawer_state = home_drawer.open
-        if (home_drawer_state) {
-            $('#menu').attr('icon', 'menu_open')
-        } else {
-            $('#menu').attr('icon', 'menu')
-        }
     })
     $('#book').on('click', () => {
         book_drawer.open = !book_drawer.open

@@ -6,6 +6,16 @@ let book_cach = {}
 
 mdui.setColorScheme('#3fb0ff')
 
+const observe = (obj, callback) => {
+    return new Proxy(obj, {
+        set(target, key, value, receiver) {
+            const result = Reflect.set(target, key, value, receiver)
+            callback()
+            return result
+        }
+    })
+}
+
 const random_code = (num = 4) => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     let result = ''
@@ -87,6 +97,6 @@ const load_music = (data, func) => {
     sound.on('load', function () {
         try {
             if (func) func(sound)
-        } catch (e) {}
+        } catch (e) { }
     })
 }

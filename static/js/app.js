@@ -56,8 +56,6 @@ const auto_play_book_music = (url) => {
 }
 
 const load_book_extn = (info) => {
-    close_drawer('home')
-    open_drawer('book')
     mdui.setTheme(info.theme.light)
     document.getElementById('menu_loaded_info').open = true
     auto_play_book_music(info.theme.music)
